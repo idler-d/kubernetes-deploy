@@ -23,7 +23,9 @@ spec:
     - name: mysql-demo
       image: mysql:5.6
       imagePullPolicy: Always
-      env: [{"MYSQL_ROOT_PASSWORD":"123456"}]
+      env:
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "123456"
 
 #volumeClaimTemplates:
 #  - metadata:
