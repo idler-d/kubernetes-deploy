@@ -9,7 +9,6 @@
 #  ports:
 #  - port: 3306
 #    name: server
-#  clusterIP: None
 #  selector:
 #    app: mysql
 #---
@@ -26,7 +25,9 @@ spec:
       env:
         - name: "MYSQL_ROOT_PASSWORD"
           value: "123456"
-
+      ports:
+        - contrainerPort: 3306
+        - name: server
 #volumeClaimTemplates:
 #  - metadata:
 #      name: datadir
