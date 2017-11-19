@@ -9,6 +9,7 @@ spec:
   ports:
   - port: 3306
     name: server
+    nodePort: 3306
   selector:
     app: mysql-demo
 ---
@@ -29,7 +30,7 @@ spec:
           value: "123456"
       ports:
         - containerPort: 3306
-          nodePort: 3306
+          name: server
 #volumeClaimTemplates:
 #  - metadata:
 #      name: datadir
