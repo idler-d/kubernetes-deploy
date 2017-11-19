@@ -27,7 +27,7 @@ spec:
           value: "123456"
       ports:
         - contrainerPort: 3306
-        - name: server
+          name: server
 #volumeClaimTemplates:
 #  - metadata:
 #      name: datadir
