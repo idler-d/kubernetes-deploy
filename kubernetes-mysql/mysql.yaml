@@ -29,8 +29,7 @@ spec:
           value: "123456"
       ports:
         - containerPort: 3306
-          name: server
-        - nodePort: 3306
+          nodePort: 3306
 #volumeClaimTemplates:
 #  - metadata:
 #      name: datadir
