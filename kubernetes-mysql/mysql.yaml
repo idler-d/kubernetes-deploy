@@ -10,13 +10,15 @@ spec:
   - port: 3306
     name: server
   selector:
-    app: mysql
+    app: mysql-demo
 ---
 
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mysql-demo
+  name: mysql
+  labels:
+      app: mysql-demo
 spec:
   containers:
     - name: mysql-demo
