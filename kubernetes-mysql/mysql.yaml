@@ -6,6 +6,8 @@ metadata:
   labels:
     app: mysql-demo
 spec:
+  externalIPs:
+    - 192.168.225.138
   ports:
   - port: 3306
     name: server
@@ -14,7 +16,7 @@ spec:
   selector:
     app: mysql-demo
 ---
-
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -32,6 +34,8 @@ spec:
       ports:
         - containerPort: 3306
           name: server
+---
+---
 #volumeClaimTemplates:
 #  - metadata:
 #      name: datadir
@@ -42,3 +46,4 @@ spec:
 #      resources:
 #        requests:
 #          storage: 3Gi
+---
