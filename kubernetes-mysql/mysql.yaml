@@ -7,7 +7,7 @@ metadata:
     app: mysql-demo
 spec:
   externalIPs:
-    - 192.168.225.138
+    - 192.168.225.137
   ports:
   - port: 3306
     name: server
