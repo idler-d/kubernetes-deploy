@@ -10,9 +10,7 @@ spec:
     - 192.168.225.137
   ports:
   - port: 3306
-    name: server
-    nodePort: 31000
-  type: NodePort
+    targetPort: 3306
   selector:
     app: mysql-demo
 ---
