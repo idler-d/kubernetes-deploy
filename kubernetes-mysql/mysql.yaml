@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mysql-service
   labels:
-    app: mysql-demo
+    app: mysql
 spec:
   externalIPs:
     - 192.168.225.137
@@ -15,33 +15,37 @@ spec:
     app: mysql-demo
 ---
 ---
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1beta2
+kind: Deployment
 metadata:
-  name: mysql
+  name: mysql-deployment
   labels:
-      app: mysql-demo
+      app: mysql
 spec:
-  containers:
-    - name: mysql-demo
-      image: mysql:5.6
-      imagePullPolicy: Always
-      env:
-        - name: "MYSQL_ROOT_PASSWORD"
-          value: "123456"
-      ports:
-        - containerPort: 3306
-          name: server
----
----
-#volumeClaimTemplates:
-#  - metadata:
-#      name: datadir
-#      annotations:
-#        volume.beta.kubernetes.io/storage-class: anything
-#    spec:
-#      accessModes: [ "ReadWriteOnce" ]
-#      resources:
-#        requests:
-#          storage: 3Gi
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql-demo
+        image: mysql:5.6
+        imagePullPolicy: Always
+        env:
+          - name: "MYSQL_ROOT_PASSWORD"
+            value: "123456"
+        ports:
+          - containerPort: 3306
+            name: server
+        volumeMounts:
+          - name: datadir
+            mountPath: /var/lib/mysql
+    volumes:
+      - name: datadir
+        persistentVolumeClaim:
+          claimName: mysql-pvc
 ---
