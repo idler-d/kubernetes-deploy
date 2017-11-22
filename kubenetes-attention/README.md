@@ -1,4 +1,4 @@
-centos7 & kubernetes & flannel & kubeadm
+#centos7 & kubernetes & flannel & kubeadm
 
 使用kubeadm安装kubernetes容器化组件安装flannel的overlay网络。
 这个网咯下部署的service会被宿主机的容器内核的iptables拦截。
