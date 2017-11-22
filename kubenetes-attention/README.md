@@ -11,7 +11,7 @@ centos7 & kubernetes & flannel & kubeadm
     内核iptables重启会重置原规则。所以把规则放进开机启动脚本中
     
     `chmod +x /etc/rc.d/rc.local`
-    `echo 'iptables -I INPUT -s 192.168.225.0/24 -j ACCEPT' >> /etc/rc.d/rc.local`
+    `echo 'iptables -I INPUT -s xxx.xxx.xxx.0/24 -j ACCEPT' >> /etc/rc.d/rc.local`
     `echo 'iptables -I FORWARD -j ACCEPT' >> /etc/rc.d/rc.local`
     
     
