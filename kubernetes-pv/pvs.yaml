@@ -9,5 +9,5 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Recycle
   nfs:
-    path: /nfs/data
+    path: /nfs/data/mysql
     server: 192.168.225.137
