@@ -44,8 +44,8 @@ spec:
         volumeMounts:
           - name: datadir
             mountPath: /var/lib/mysql
-    volumes:
-      - name: datadir
-        persistentVolumeClaim:
-          claimName: mysql-pvc
+      volumes:
+        - name: datadir
+          persistentVolumeClaim:
+            claimName: mysql-pvc
 ---
