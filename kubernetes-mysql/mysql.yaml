@@ -1,9 +1,13 @@
+#apiVersion: v1
+#kind: Namespace
+#metadata:
+#name: mysql
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql-service
-  namespace: mysql
+#  namespace: mysql
   labels:
     app: mysql
 spec:
@@ -15,12 +19,11 @@ spec:
   selector:
     app: mysql
 ---
----
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   name: mysql-deployment
-  namespace: mysql
+#  namespace: mysql
   labels:
       app: mysql
 spec:
@@ -51,4 +54,3 @@ spec:
         - name: datadir
           persistentVolumeClaim:
             claimName: mysql-pvc
----
