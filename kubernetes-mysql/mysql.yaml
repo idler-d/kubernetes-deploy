@@ -33,7 +33,7 @@ spec:
       app: mysql
   template:
     metadata:
-      namespace: mysql
+#      namespace: mysql
       labels:
         app: mysql
     spec:
