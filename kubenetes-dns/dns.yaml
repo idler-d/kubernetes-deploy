@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: dns-deployment
+#  namespace: dns
+  labels:
+      app: dns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dns
+  template:
+    metadata:
+#      namespace: dns
+      labels:
+        app: dns
+    spec:
+      containers:
+      - name: dns-demo
+        image: andyshinn/dnsmasq:2.75
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 53
+          - containerPort: 53
+            protocol: UDP
