@@ -1,4 +1,5 @@
 ---
+#选举服务
 apiVersion: v1
 kind: Service
 metadata:
@@ -15,6 +16,7 @@ spec:
   selector:
     app: zk
 ---
+#应用服务
 apiVersion: v1
 kind: Service
 metadata:
@@ -38,3 +40,82 @@ spec:
       app: zk
   maxUnavailable: 1
 ---
+apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: zk
+spec:
+  selector:
+    matchLabels:
+      app: zk
+  serviceName: zk-hs
+  replicas: 3
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: Parallel
+  template:
+    metadata:
+      labels:
+        app: zk
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: "app"
+                    operator: In
+                    values:
+                    - zk
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: kubernetes-zookeeper
+          imagePullPolicy: Always
+          image: zookeeper
+          ports:
+            - containerPort: 2181
+              name: client
+            - containerPort: 2888
+              name: server
+            - containerPort: 3888
+              name: leader-election
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "/opt/zookeeper/bin/zkCli.sh ls /"
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "/opt/zookeeper/bin/zkCli.sh ls /"
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          volumeMounts:
+            - name: zoo-pvc
+              mountPath: /var/lib/zookeeper
+            - name: zoo-config
+              mountPath: /conf
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
+      volumes:
+        - name: zoo-config
+        configMap:
+          name:
+            zoo-configmap
+   volumeClaimTemplates:
+    - metadata:
+        name: zoo-pvc
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 5Gi
+        selector:
+          matchLabels:
+            app: zoo-persistentVolume
