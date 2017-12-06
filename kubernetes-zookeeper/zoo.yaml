@@ -70,18 +70,18 @@ spec:
         imagePullPolicy: Always
         image: zookeeper
         ports:
-          - containerPort: 2181
-            name: client
-          - containerPort: 2888
-            name: server
-          - containerPort: 3888
-            name: leader-election
+        - containerPort: 2181
+          name: client
+        - containerPort: 2888
+          name: server
+        - containerPort: 3888
+          name: leader-election
         readinessProbe:
           exec:
             command:
             - sh
             - -c
-            - "/opt/zookeeper/bin/zkCli.sh ls /"
+            - "zkCli.sh ls /"
           initialDelaySeconds: 10
           timeoutSeconds: 5
         livenessProbe:
@@ -89,22 +89,15 @@ spec:
             command:
             - sh
             - -c
-            - "/opt/zookeeper/bin/zkCli.sh ls /"
+            - "zkCli.sh ls /"
           initialDelaySeconds: 10
           timeoutSeconds: 5
         volumeMounts:
         - name: zoo-pvc
           mountPath: /var/lib/zookeeper
-        - name: zoo-config
-          mountPath: /conf
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
-      volumes:
-      - name: zoo-config
-        configMap:
-          name:
-            zoo-configmap
    volumeClaimTemplates:
     - metadata:
         name: zoo-pvc
