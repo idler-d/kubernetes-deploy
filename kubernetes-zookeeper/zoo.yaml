@@ -93,11 +93,16 @@ spec:
           initialDelaySeconds: 10
           timeoutSeconds: 5
         volumeMounts:
-        - name: zoo-pvc
-          mountPath: /var/lib/zookeeper
+        - name: zoo-config
+          mountPath: /conf
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
+      volumes:
+        - name: zoo-config
+        configMap:
+          name:
+            zoo-configmap
   volumeClaimTemplates:
   - metadata:
       name: zoo-pvc

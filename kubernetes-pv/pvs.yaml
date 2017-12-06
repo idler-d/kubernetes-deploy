@@ -17,15 +17,47 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: pv0002
+  name: zoo-pv0001
   labels:
       app: zoo-persistentVolume
 spec:
   capacity:
-    storage: 5Gi
+    storage: 2Gi
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Recycle
   nfs:
-    path: /nfs/data/zoo
+    path: /nfs/data/zoo1
+    server: 192.168.225.137
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zoo-pv0002
+  labels:
+      app: zoo-persistentVolume
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    path: /nfs/data/zoo2
+    server: 192.168.225.137
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zoo-pv0003
+  labels:
+      app: zoo-persistentVolume
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    path: /nfs/data/zoo3
     server: 192.168.225.137
