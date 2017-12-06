@@ -100,9 +100,9 @@ spec:
         fsGroup: 1000
       volumes:
         - name: zoo-config
-        configMap:
-          name:
-            zoo-configmap
+          configMap:
+            name:
+              zoo-configmap
   volumeClaimTemplates:
   - metadata:
       name: zoo-pvc
