@@ -98,14 +98,14 @@ spec:
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
-   volumeClaimTemplates:
-    - metadata:
-        name: zoo-pvc
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 5Gi
-        selector:
-          matchLabels:
-            app: zoo-persistentVolume
+  volumeClaimTemplates:
+  - metadata:
+      name: zoo-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 5Gi
+      selector:
+        matchLabels:
+          app: zoo-persistentVolume
